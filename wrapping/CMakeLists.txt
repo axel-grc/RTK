@@ -29,7 +29,6 @@ itk_end_wrap_module()
 
 wrap_itk_python_bindings_install(/itk "RTK"
     __init_rtk__.py
-
     ${RTK_SOURCE_DIR}/applications/rtk3Doutputimage_group.py
     ${RTK_SOURCE_DIR}/applications/rtkinputprojections_group.py
     ${RTK_SOURCE_DIR}/applications/rtkiterations_group.py
