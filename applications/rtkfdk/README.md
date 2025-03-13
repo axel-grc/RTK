@@ -9,7 +9,7 @@ The following exampels illustrates the command line application `rtkfdk` by reco
 ## 3D
 
 ![sin_3D](../../documentation/docs/ExternalData/SheppLogan-3D-Sinogram.png){w=200px alt="Shepp-Logan 3D sinogram"}
-![img_3D](../../documentation/docs/ExternalData/SheppLogan-3D.png){w=200px alt="Shepp-Logan 3D image"}
+![img_3D](../../documentation/docs/ExternalData/Fdk-3D.png){w=200px alt="Fdk 2D reconstruction"}
 
 This script uses the file [SheppLogan.txt](https://data.kitware.com/api/v1/item/5b179c938d777f15ebe2020b/download) as input.
 
@@ -22,11 +22,11 @@ This script uses the file [SheppLogan.txt](https://data.kitware.com/api/v1/item/
 ## 2D
 
 ![sin_2D](../../documentation/docs/ExternalData/SheppLogan-2D-Sinogram.png){w=200px alt="Shepp-Logan 2D sinogram"}
-![img_2D](../../documentation/docs/ExternalData/SheppLogan-2D.png){w=200px alt="Shepp-Logan 2D image"}
+![img_2D](../../documentation/docs/ExternalData/Fdk-2D.png){w=200px alt="Fdk 2D reconstruction"}
 
 The same reconstruction can be performed using the original 2D Shepp-Logan phantom.
 RTK can perform 2D reconstructions through images wide of 1 pixel in the y direction.
-The following script performs the same reconstruction as above in a 2D environment and uses the [2D Shepp-Logan](http://wiki.openrtk.org/images/7/73/SheppLogan-2d.txt) phantom as input.
+The following script performs the same reconstruction as above in a 2D environment and uses the [2D Shepp-Logan](https://data.kitware.com/#item/67d1ff45c6dec2fc9c534d0c/download) phantom as input.
 
 ```{literalinclude} FDK2D.sh
 ```
