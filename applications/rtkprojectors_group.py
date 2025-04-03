@@ -1,3 +1,4 @@
+import itk
 __all__ = [
     'add_rtkprojectors_group',
     'SetForwardProjectionFromArgParse',
@@ -47,11 +48,11 @@ def SetBackProjectionFromArgParse(args_info, recon):
   elif args_info.bp == 'Zeng': # bp_arg_RotationBased
     recon.SetBackProjectionFilter(ReconType.BackProjectionType_BP_ZENG)
     if args_info.sigmazero is not None:
-      recon.SetSigmaZero(args_info.sigmazero);
+      recon.SetSigmaZero(args_info.sigmazero)
     if args_info.alphapsf is not None:
-      recon.SetAlphaPSF(args_info.alphapsf);
+      recon.SetAlphaPSF(args_info.alphapsf)
     if args_info.attenuationmap is not None:
-      recon.SetAttenuationMap(attenuationMap);
+      recon.SetAttenuationMap(args_info.attenuationMap)
 
 # Mimicks SetForwardProjectionFromGgo
 def SetForwardProjectionFromArgParse(args_info, recon):
@@ -69,8 +70,8 @@ def SetForwardProjectionFromArgParse(args_info, recon):
   elif args_info.fp == 'Zeng': # fp_arg_RotationBased
     recon.SetForwardProjectionFilter(ReconType.ForwardProjectionType_FP_ZENG)
     if args_info.sigmazero is not None:
-      recon.SetSigmaZero(args_info.sigmazero);
+      recon.SetSigmaZero(args_info.sigmazero)
     if args_info.alphapsf is not None:
-      recon.SetAlphaPSF(args_info.alphapsf);
+      recon.SetAlphaPSF(args_info.alphapsf)
     if args_info.attenuationmap is not None:
-      recon.SetAttenuationMap(attenuationMap);
+      recon.SetAttenuationMap(args_info.attenuationMap)
