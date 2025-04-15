@@ -30,6 +30,7 @@ extensions = [
     'myst_parser',
     'sphinx_copybutton',
     'sphinx_design',
+    'sphinx_argparse_cli',
 ]
 
 myst_enable_extensions = [

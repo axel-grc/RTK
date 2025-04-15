@@ -39,3 +39,11 @@ In the presence of noise, all projection data may not be equally reliable. The c
 ```
 ````
 `````
+```{sphinx_argparse_cli}
+   :module: itk.rtkconjugategardient
+   :func: main
+   :hook:
+   :title:
+   :group_title_prefix:
+   :prog: rtkconjugategardient
+```
