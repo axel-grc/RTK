@@ -14,6 +14,9 @@ and execute a basic reconstruction process.
 Additionally, there are examples which use CUDA for GPU-accelerated computations, 
 providing efficient implementations for high-performance applications.
 
+While C++ in RTK typically uses an object-oriented approach with setters and manual pipeline connections, the python examples provide a more concise functional style. Functions like rtk.constant_image_source let users pass parameters directly as arguments.
+However, some advanced workflows, such as real-time or on-the-fly reconstruction, require more control over the pipeline. In these cases, object-oriented methods like .SetInput(), .Update(), and .DisconnectPipeline() are necessary to manage the pipeline dynamically. So, both styles are complementary: use functional style for simplicity and object-oriented for fine-grained control.
+
 ```{toctree}
 :maxdepth: 1
 
