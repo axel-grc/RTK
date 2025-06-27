@@ -22,6 +22,7 @@ for mod_name in rtk_submodules:
 _app_modules = [
     "rtkamsterdamshroud",
     "rtkbackprojections",
+    "rtkcheckimagequality",
     "rtkconjugategradient",
     "rtkdrawgeometricphantom",
     "rtkdrawshepploganphantom",

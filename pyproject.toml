@@ -43,6 +43,7 @@ dependencies = [
 [project.scripts]
 rtkamsterdamshroud = "itk.rtkamsterdamshroud:main"
 rtkbackprojections = "itk.rtkbackprojections:main"
+rtkcjeckimagequality = "itk.rtkcheckimagequality:main"
 rtkconjugategradient = "itk.rtkconjugategradient:main"
 rtkdrawgeometricphantom = "itk.rtkdrawgeometricphantom:main"
 rtkdrawshepploganphantom = "itk.rtkdrawshepploganphantom:main"
