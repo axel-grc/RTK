@@ -26,6 +26,7 @@ _app_modules = [
     "rtkbackprojections",
     "rtkbioscangeometry",
     "rtkconjugategradient",
+    "rtkdigisensgeometry",
     "rtkdrawgeometricphantom",
     "rtkdrawshepploganphantom",
     "rtkelektasynergygeometry",
