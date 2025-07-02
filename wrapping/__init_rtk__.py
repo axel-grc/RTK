@@ -25,6 +25,7 @@ _app_modules = [
     "rtkamsterdamshroud",
     "rtkbackprojections",
     "rtkbioscangeometry",
+    "rtkcheckimagequality",
     "rtkconjugategradient",
     "rtkdigisensgeometry",
     "rtkdrawgeometricphantom",
