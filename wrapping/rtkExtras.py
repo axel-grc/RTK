@@ -50,19 +50,6 @@ class PercentageProgressCommand:
         print()  # Print newline when execution ends
 
 
-# Returns a lambda function that parses a comma-separated string and converts each element to the specified type.
-def comma_separated_args(value_type):
-    def parser(value):
-        try:
-            return [value_type(s.strip()) for s in value.split(",")]
-        except ValueError as e:
-            raise argparse.ArgumentTypeError(
-                f"invalid {value_type.__name__} value: {value!r}"
-            )
-
-    return parser
-
-
 def parse_kwargs(parser: argparse.ArgumentParser, func_name: str = None, **kwargs: Any):
     """
     Convert kwargs → argv → parsed Namespace.
