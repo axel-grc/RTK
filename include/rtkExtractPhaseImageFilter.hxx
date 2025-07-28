@@ -38,10 +38,57 @@ ExtractPhaseImageFilter<TImage>::ExtractPhaseImageFilter()
   , m_Model(LINEAR_BETWEEN_MINIMA)
 {}
 
+
+// Helper function to compute padded region for FFT (product of 2,3,5)
+template <typename TImage>
+typename TImage::RegionType
+GetPaddedImageRegion(const typename TImage::RegionType & inputRegion)
+{
+  typename TImage::RegionType paddedRegion = inputRegion;
+  using SizeType = typename TImage::SizeType;
+  SizeType size = inputRegion.GetSize();
+  int      xPaddedSize = size[0];
+  auto     is_valid = [](int x) {
+    while (x % 2 == 0)
+      x /= 2;
+    while (x % 3 == 0)
+      x /= 3;
+    while (x % 5 == 0)
+      x /= 5;
+    return x == 1;
+  };
+  while (!is_valid(xPaddedSize))
+    ++xPaddedSize;
+  paddedRegion.SetSize(0, xPaddedSize);
+  paddedRegion.SetIndex(0, inputRegion.GetIndex(0));
+  return paddedRegion;
+}
+
 template <class TImage>
 void
 ExtractPhaseImageFilter<TImage>::GenerateData()
 {
+  // Pad input signal to valid FFT size only if FFTW is not available
+  const TImage *              inputRaw = this->GetInput();
+  typename TImage::Pointer    input = const_cast<TImage *>(inputRaw);
+  int                         orig_size = input->GetLargestPossibleRegion().GetSize()[0];
+  typename TImage::RegionType region = input->GetLargestPossibleRegion();
+#if !defined(USE_FFTWF) && !defined(USE_FFTWD)
+  typename TImage::RegionType padded_region = GetPaddedImageRegion<TImage>(region);
+  int                         padded_size = padded_region.GetSize()[0];
+  if (padded_size != orig_size)
+  {
+    typename TImage::Pointer padded = TImage::New();
+    padded->SetRegions(padded_region);
+    padded->Allocate();
+    padded->FillBuffer(0);
+    // Copy original data
+    for (int i = 0; i < orig_size; ++i)
+      padded->SetPixel({ i }, input->GetPixel({ i }));
+    input = padded;
+  }
+#endif
+
   // Moving average
   typename TImage::SizeType kernelSz;
   kernelSz[0] = m_MovingAverageSize;
@@ -53,7 +100,7 @@ ExtractPhaseImageFilter<TImage>::GenerateData()
 
   using ConvolutionType = itk::ConvolutionImageFilter<TImage, TImage>;
   auto conv = ConvolutionType::New();
-  conv->SetInput(this->GetInput());
+  conv->SetInput(input);
   conv->SetKernelImage(kernel);
 
   // Unsharp mask
@@ -120,8 +167,8 @@ ExtractPhaseImageFilter<TImage>::GenerateData()
   if (m_MinimaPositions.empty() || m_MaximaPositions.empty())
     itkExceptionMacro(<< "Problem detecting extremas");
 
-  const typename TImage::PixelType * sig = this->GetInput()->GetBufferPointer();
-  int                                nsig = this->GetInput()->GetLargestPossibleRegion().GetSize()[0];
+  const typename TImage::PixelType * sig = input->GetBufferPointer();
+  int                                nsig = orig_size;
 
   // Find minimum between two maxima
   int currMinPos = 0;
@@ -184,7 +231,18 @@ ExtractPhaseImageFilter<TImage>::GenerateData()
         it.Set(curr);
         ++it;
       }
-      this->GetOutput()->Graft(phase->GetOutput());
+      // Crop output to original size
+      {
+        typename TImage::RegionType crop_region;
+        crop_region.SetIndex(0, 0);
+        crop_region.SetSize(0, orig_size);
+        auto extract = itk::ExtractImageFilter<TImage, TImage>::New();
+        extract->SetInput(phase->GetOutput());
+        extract->SetExtractionRegion(crop_region);
+        extract->SetDirectionCollapseToIdentity();
+        extract->Update();
+        this->GetOutput()->Graft(extract->GetOutput());
+      }
       break;
     case (LINEAR_BETWEEN_MINIMA):
       ComputeLinearPhaseBetweenPositions(m_MinimaPositions);
