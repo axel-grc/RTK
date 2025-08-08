@@ -6,7 +6,7 @@ from itk import RTK as rtk
 
 
 def build_parser():
-    parser = rtk.rtk_argument_parser("Backprojects a volume according to a geometry file.")
+    parser = rtk.rtk_argument_parser(description="Backprojects a volume according to a geometry file.")
 
     # General arguments
     parser.add_argument(

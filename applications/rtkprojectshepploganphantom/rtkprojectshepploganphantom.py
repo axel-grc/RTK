@@ -5,7 +5,7 @@ from itk import RTK as rtk
 
 def build_parser():
     # Argument parsing
-    parser = rtk.rtk_argument_parser("Computes projections through a 3D Shepp & Logan phantom, according to a geometry")
+    parser = rtk.rtk_argument_parser(description="Computes projections through a 3D Shepp & Logan phantom, according to a geometry")
     # General options
     parser.add_argument(
         "--verbose", "-v", help="Verbose execution", action="store_true"
@@ -19,14 +19,16 @@ def build_parser():
     parser.add_argument(
         "--phantomscale",
         help="Scaling factor for the phantom dimensions",
-        type=rtk.comma_separated_args(float),
+        type=float,
+        nargs="+",
         default=[128],
     )
     parser.add_argument("--noise", help="Gaussian noise parameter (SD)", type=float)
     parser.add_argument(
         "--offset",
         help="3D spatial offset of the phantom center",
-        type=rtk.comma_separated_args(float),
+        type=float,
+        nargs="+",
     )
 
     rtk.add_rtk3Doutputimage_group(parser)

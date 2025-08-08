@@ -7,7 +7,7 @@ import numpy as np
 
 def build_parser():
     # Argument parsing
-    parser = rtk.rtk_argument_parser("Computes projections through a 3D phantom described by a file, according to a geometry")
+    parser = rtk.rtk_argument_parser(description="Computes projections through a 3D phantom described by a file, according to a geometry")
     # General options
     parser.add_argument(
         "--verbose", "-v", help="Verbose execution", action="store_true"
@@ -27,18 +27,21 @@ def build_parser():
     parser.add_argument(
         "--phantomscale",
         help="Scaling factor for the phantom dimensions",
-        type=rtk.comma_separated_args(float),
+        type=float,
+        nargs="+",
         default=[1.0],
     )
     parser.add_argument(
         "--offset",
         help="3D spatial offset of the phantom center",
-        type=rtk.comma_separated_args(float),
+        type=float,
+        nargs="+",
     )
     parser.add_argument(
         "--rotation",
         help="Rotation matrix for the phantom",
-        type=rtk.comma_separated_args(float),
+        type=float,
+        nargs="+",
     )
 
     rtk.add_rtk3Doutputimage_group(parser)

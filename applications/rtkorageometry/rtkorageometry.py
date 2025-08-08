@@ -6,7 +6,7 @@ from itk import RTK as rtk
 
 def build_parser():
     # Argument parsing
-    parser = rtk.rtk_argument_parser("Creates an RTK geometry file from a Varian OBI acquisition.")
+    parser = rtk.rtk_argument_parser(description="Creates an RTK geometry file from a Varian OBI acquisition.")
 
     parser.add_argument("--verbose", "-v", help="Verbose execution", type=bool)
     parser.add_argument(
@@ -23,7 +23,8 @@ def build_parser():
         "--margin",
         "-m",
         help="Collimation margin (uinf, usup, vinf, vsup)",
-        type=rtk.comma_separated_args(float),
+        type=float,
+        nargs="+",
         default=0.0,
     )
 

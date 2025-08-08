@@ -6,7 +6,7 @@ from itk import RTK as rtk
 
 
 def build_parser():
-    parser = rtk.rtk_argument_parser("Creates an Amsterdam Shroud image from a sequence of projections [Zijp et al, ICCR, 2004].")
+    parser = rtk.rtk_argument_parser(description="Creates an Amsterdam Shroud image from a sequence of projections [Zijp et al, ICCR, 2004].")
 
     # General options
     parser.add_argument(
@@ -22,7 +22,8 @@ def build_parser():
         "--clipbox",
         "-c",
         help="3D clipbox for cropping projections (x1, x2, y1, y2, z1, z2) in mm",
-        type=rtk.comma_separated_args(float),
+        type=float,
+        nargs="+"
     )
     parser.add_argument("--geometry", "-g", help="XML geometry file name", type=str)
 

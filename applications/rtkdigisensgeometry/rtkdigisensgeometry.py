@@ -2,9 +2,8 @@ import argparse
 from itk import RTK as rtk
 
 def build_parser():
-    parser = argparse.ArgumentParser(
+    parser = rtk.rtk_argument_parser(
         description="Read Digisens geometry XML and write RTK geometry XML file.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
         "--xml_file", "-x", required=True, help="Input Digisens XML calibration file"
