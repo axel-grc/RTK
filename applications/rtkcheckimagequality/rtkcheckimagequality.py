@@ -4,7 +4,7 @@ import itk
 from itk import RTK as rtk
 
 def build_parser():
-    parser = argparse.ArgumentParser(
+    parser = rtk.rtk_argument_parser(
         description="Checks the MSE of a reconstructed image against a reference.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
@@ -12,21 +12,24 @@ def build_parser():
         "--reference",
         "-i",
         required=True,
-        type=rtk.comma_separated_args(str),
+        type=str,
+        nargs="+",
         help="Reference volume(s)",
     )
     parser.add_argument(
         "--reconstruction",
         "-j",
         required=True,
-        type=rtk.comma_separated_args(str),
+        type=str,
+        nargs="+",
         help="Reconstructed volume(s)",
     )
     parser.add_argument(
         "--threshold",
         "-t",
         required=True,
-        type=rtk.comma_separated_args(float),
+        type=float,
+        nargs="+",
         help="MSE threshold(s)",
     )
     parser.add_argument(
