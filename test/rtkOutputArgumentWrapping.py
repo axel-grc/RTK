@@ -1,8 +1,8 @@
 import itk
 from itk import RTK as rtk
 
-def test_OutputArgumentWrapping():
-    # Test for rtkConvexShape::IsIntersectedByRay
+# Test for rtkConvexShape::IsIntersectedByRay
+def test_IsIntersectedByRay():
     q = rtk.QuadricShape.New()
 
     # Define a sphere of radius 10
@@ -14,8 +14,9 @@ def test_OutputArgumentWrapping():
 
     print(q.IsIntersectedByRay([-20, 0, 0], [1, 0, 0]))
 
-    # Test for rtk::FieldOfViewImageFilter::ComputeFOVRadius
 
+# Test for rtk::FieldOfViewImageFilter::ComputeFOVRadius
+def test_ComputeFOVRadius():
     geometry = rtk.ThreeDCircularProjectionGeometry.New()
     numberOfProjections = 360
     firstAngle = 0
@@ -41,4 +42,5 @@ def test_OutputArgumentWrapping():
     f = rtk.FieldOfViewImageFilter.New()
     f.SetGeometry(geometry)
     f.SetProjectionsStack(source)
+
     print(f.ComputeFOVRadius(f.FOVRadiusType_RADIUSINF))
