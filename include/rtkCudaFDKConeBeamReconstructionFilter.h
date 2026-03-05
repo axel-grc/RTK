@@ -29,6 +29,17 @@
 #  include "rtkCudaFDKBackProjectionImageFilter.h"
 #  include "RTKExport.h"
 
+
+#  include "rtkCudaExternTemplates.h"
+
+ITK_GCC_PRAGMA_DIAG_PUSH()
+ITK_GCC_PRAGMA_DIAG(ignored "-Wattributes")
+extern template class RTK_EXPORT_EXPLICIT itk::CudaInPlaceImageFilter<
+  itk::CudaImage<float, 3>,
+  itk::CudaImage<float, 3>,
+  rtk::FDKConeBeamReconstructionFilter<itk::CudaImage<float, 3>, itk::CudaImage<float, 3>, float>>;
+ITK_GCC_PRAGMA_DIAG_POP()
+
 namespace rtk
 {
 
@@ -82,6 +93,7 @@ protected:
 }; // end of class
 
 } // end namespace rtk
+
 
 #endif // end conditional definition of the class
 

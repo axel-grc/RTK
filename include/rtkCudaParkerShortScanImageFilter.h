@@ -26,8 +26,19 @@
 #  include "rtkParkerShortScanImageFilter.h"
 #  include "RTKExport.h"
 
+
 #  include <itkCudaImage.h>
 #  include <itkCudaInPlaceImageFilter.h>
+
+#  include "rtkCudaExternTemplates.h"
+
+ITK_GCC_PRAGMA_DIAG_PUSH()
+ITK_GCC_PRAGMA_DIAG(ignored "-Wattributes")
+extern template class RTK_EXPORT_EXPLICIT
+  itk::CudaInPlaceImageFilter<itk::CudaImage<float, 3>,
+                              itk::CudaImage<float, 3>,
+                              rtk::ParkerShortScanImageFilter<itk::CudaImage<float, 3>>>;
+ITK_GCC_PRAGMA_DIAG_POP()
 
 namespace rtk
 {

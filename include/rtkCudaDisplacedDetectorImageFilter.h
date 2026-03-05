@@ -26,8 +26,20 @@
 #  include "rtkDisplacedDetectorImageFilter.h"
 #  include "RTKExport.h"
 
+
 #  include <itkCudaImage.h>
 #  include <itkCudaInPlaceImageFilter.h>
+
+#  include "rtkCudaExternTemplates.h"
+
+ITK_GCC_PRAGMA_DIAG_PUSH()
+ITK_GCC_PRAGMA_DIAG(ignored "-Wattributes")
+extern template class RTK_EXPORT_EXPLICIT rtk::DisplacedDetectorImageFilter<itk::CudaImage<float, 3>>;
+extern template class RTK_EXPORT_EXPLICIT
+  itk::CudaInPlaceImageFilter<itk::CudaImage<float, 3>,
+                              itk::CudaImage<float, 3>,
+                              rtk::DisplacedDetectorImageFilter<itk::CudaImage<float, 3>>>;
+ITK_GCC_PRAGMA_DIAG_POP()
 
 namespace rtk
 {

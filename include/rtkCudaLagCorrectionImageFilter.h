@@ -26,10 +26,21 @@
 #  include "rtkLagCorrectionImageFilter.h"
 #  include "RTKExport.h"
 
+
 #  include <itkCudaImage.h>
 #  include <itkCudaInPlaceImageFilter.h>
 
+#  include "rtkCudaExternTemplates.h"
+
 #  include "rtkConfiguration.h"
+
+ITK_GCC_PRAGMA_DIAG_PUSH()
+ITK_GCC_PRAGMA_DIAG(ignored "-Wattributes")
+extern template class RTK_EXPORT_EXPLICIT
+  itk::CudaInPlaceImageFilter<itk::CudaImage<unsigned short, 3>,
+                              itk::CudaImage<unsigned short, 3>,
+                              rtk::LagCorrectionImageFilter<itk::CudaImage<unsigned short, 3>, 4>>;
+ITK_GCC_PRAGMA_DIAG_POP()
 
 namespace rtk
 {

@@ -25,7 +25,19 @@
 
 #  include "rtkCyclicDeformationImageFilter.h"
 #  include <itkCudaImageToImageFilter.h>
+
+#  include "rtkCudaExternTemplates.h"
 #  include "RTKExport.h"
+
+
+ITK_GCC_PRAGMA_DIAG_PUSH()
+ITK_GCC_PRAGMA_DIAG(ignored "-Wattributes")
+extern template class RTK_EXPORT_EXPLICIT
+  itk::CudaImageToImageFilter<itk::CudaImage<itk::CovariantVector<float, 3>, 4>,
+                              itk::CudaImage<itk::CovariantVector<float, 3>, 3>,
+                              rtk::CyclicDeformationImageFilter<itk::CudaImage<itk::CovariantVector<float, 3>, 4>,
+                                                                itk::CudaImage<itk::CovariantVector<float, 3>, 3>>>;
+ITK_GCC_PRAGMA_DIAG_POP()
 
 namespace rtk
 {
@@ -74,6 +86,7 @@ protected:
 }; // end of class
 
 } // end namespace rtk
+
 
 #endif // end conditional definition of the class
 

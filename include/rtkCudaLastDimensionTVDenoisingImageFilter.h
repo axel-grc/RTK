@@ -25,7 +25,19 @@
 
 #  include "rtkTotalVariationDenoisingBPDQImageFilter.h"
 #  include <itkCudaInPlaceImageFilter.h>
+
+#  include "rtkCudaExternTemplates.h"
 #  include "RTKExport.h"
+
+
+ITK_GCC_PRAGMA_DIAG_PUSH()
+ITK_GCC_PRAGMA_DIAG(ignored "-Wattributes")
+extern template class RTK_EXPORT_EXPLICIT itk::CudaInPlaceImageFilter<
+  itk::CudaImage<float, 4>,
+  itk::CudaImage<float, 4>,
+  rtk::TotalVariationDenoisingBPDQImageFilter<itk::CudaImage<float, 4>,
+                                              itk::CudaImage<itk::CovariantVector<float, 1>, 4>>>;
+ITK_GCC_PRAGMA_DIAG_POP()
 
 namespace rtk
 {
@@ -75,6 +87,7 @@ protected:
 }; // end of class
 
 } // end namespace rtk
+
 
 #endif // end conditional definition of the class
 

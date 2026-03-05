@@ -25,8 +25,19 @@
 #  include <itkCropImageFilter.h>
 #  include "RTKExport.h"
 
+
 #  include <itkCudaImage.h>
 #  include <itkCudaImageToImageFilter.h>
+
+#  include "rtkCudaExternTemplates.h"
+
+ITK_GCC_PRAGMA_DIAG_PUSH()
+ITK_GCC_PRAGMA_DIAG(ignored "-Wattributes")
+extern template class RTK_EXPORT_EXPLICIT
+  itk::CudaImageToImageFilter<itk::CudaImage<float, 3>,
+                              itk::CudaImage<float, 3>,
+                              itk::CropImageFilter<itk::CudaImage<float, 3>, itk::CudaImage<float, 3>>>;
+ITK_GCC_PRAGMA_DIAG_POP()
 
 namespace rtk
 {
@@ -76,6 +87,7 @@ protected:
 
 }; // end of class
 } // end namespace rtk
+
 
 #endif // end conditional definition of the class
 
