@@ -71,7 +71,7 @@ public:
    *
    */
   using InterpolationWeightMultiplicationFunc =
-    std::function<OutputPixelType(const ThreadIdType, double, const WeightCoordinateType, const InputPixelType *, int)>;
+    std::function<OutputPixelType(const ThreadIdType, double, const WeightCoordinateType, const InputPixelType *, ptrdiff_t)>;
 
   /** \brief Function to compute the attenuation correction on the projection.
    *
