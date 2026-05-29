@@ -264,9 +264,12 @@ jobs:
           export LD_LIBRARY_PATH="/home/srit/Downloads/cuda${{ matrix.cuda-version }}/targets/x86_64-linux/lib:$LD_LIBRARY_PATH"
           source .test-venv/bin/activate
         else
-          CUDA_VERSION_MAJOR=$(echo "${{ matrix.cuda-version }}" | cut -b1-2)
-          CUDA_VERSION_MINOR=$(echo "${{ matrix.cuda-version }}" | cut -b3-)
-          export PATH="/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v${CUDA_VERSION_MAJOR}.${CUDA_VERSION_MINOR}/bin:$PATH"
+          CUDA_VERSION="${{ matrix.cuda-version }}"
+          CUDA_VERSION_MAJOR=$(echo "$CUDA_VERSION" | cut -b1-2)
+          CUDA_VERSION_MINOR=$(echo "$CUDA_VERSION" | cut -b3-)
+          CUDA_PATH="C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v${CUDA_VERSION_MAJOR}.${CUDA_VERSION_MINOR}"
+          export CUDACXX="${CUDA_PATH}/bin/nvcc.exe"
+          export PATH="${CUDA_PATH}/bin:${PATH}"
           source .test-venv/Scripts/activate
         fi
         trap 'deactivate; rm -rf .test-venv' EXIT
