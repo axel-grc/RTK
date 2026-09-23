@@ -28,7 +28,11 @@
 #include <cuda_runtime.h>
 
 void
-CUDA_interpolation(const int4 & inputSize, float * input, float * output, int projectionNumber, float ** weights)
+CUDA_interpolation(const SizeValueType4 & inputSize,
+                   float *                input,
+                   float *                output,
+                   int                    projectionNumber,
+                   float **               weights)
 {
   cublasHandle_t handle;
   cublasCreate(&handle);
@@ -40,7 +44,7 @@ CUDA_interpolation(const int4 & inputSize, float * input, float * output, int pr
   // Reset output volume
   cudaMemset((void *)output, 0, memorySizeOutput);
 
-  for (int phase = 0; phase < inputSize.w; phase++)
+  for (itk::SizeValueType phase = 0; phase < inputSize.w; phase++)
   {
     float weight = weights[phase][projectionNumber];
     if (weight != 0)

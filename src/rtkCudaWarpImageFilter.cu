@@ -58,9 +58,9 @@ kernel_3Dgrid(float *             dev_vol_out,
               cudaTextureObject_t tex_zdvf,
               cudaTextureObject_t tex_input_vol)
 {
-  unsigned int i = __umul24(blockIdx.x, blockDim.x) + threadIdx.x;
-  unsigned int j = __umul24(blockIdx.y, blockDim.y) + threadIdx.y;
-  unsigned int k = __umul24(blockIdx.z, blockDim.z) + threadIdx.z;
+  itk::SizeValueType i = __umul24(blockIdx.x, blockDim.x) + threadIdx.x;
+  itk::SizeValueType j = __umul24(blockIdx.y, blockDim.y) + threadIdx.y;
+  itk::SizeValueType k = __umul24(blockIdx.z, blockDim.z) + threadIdx.z;
 
   if (i >= vol_dim.x || j >= vol_dim.y || k >= vol_dim.z)
   {
@@ -68,7 +68,7 @@ kernel_3Dgrid(float *             dev_vol_out,
   }
 
   // Index row major into the volume
-  long int vol_idx = i + (j + k * vol_dim.y) * (vol_dim.x);
+  itk::SizeValueType vol_idx = i + (j + k * vol_dim.y) * vol_dim.x;
 
   // Matrix multiply to get the index in the DVF texture of the current point in the output volume
   float3 IndexInDVF = matrix_multiply(make_float3(i, j, k), c_IndexOutputToIndexDVFMatrix);

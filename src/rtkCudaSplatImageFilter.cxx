@@ -29,7 +29,7 @@ CudaSplatImageFilter ::CudaSplatImageFilter() = default;
 void
 CudaSplatImageFilter ::GPUGenerateData()
 {
-  int4 outputSize;
+  SizeValueType4 outputSize;
   outputSize.x = this->GetOutput()->GetLargestPossibleRegion().GetSize()[0];
   outputSize.y = this->GetOutput()->GetLargestPossibleRegion().GetSize()[1];
   outputSize.z = this->GetOutput()->GetLargestPossibleRegion().GetSize()[2];

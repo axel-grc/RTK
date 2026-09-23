@@ -29,12 +29,11 @@ CudaAverageOutOfROIImageFilter ::CudaAverageOutOfROIImageFilter() = default;
 void
 CudaAverageOutOfROIImageFilter ::GPUGenerateData()
 {
-  int size[4];
-
-  for (int i = 0; i < 4; i++)
-  {
-    size[i] = this->GetOutput()->GetBufferedRegion().GetSize()[i];
-  }
+  SizeValueType4 size;
+  size.x = this->GetOutput()->GetBufferedRegion().GetSize()[0];
+  size.y = this->GetOutput()->GetBufferedRegion().GetSize()[1];
+  size.z = this->GetOutput()->GetBufferedRegion().GetSize()[2];
+  size.w = this->GetOutput()->GetBufferedRegion().GetSize()[3];
 
   float * pin = static_cast<float *>(this->GetInput()->GetCudaDataManager()->GetGPUBufferPointer());
   float * pout = static_cast<float *>(this->GetOutput()->GetCudaDataManager()->GetGPUBufferPointer());

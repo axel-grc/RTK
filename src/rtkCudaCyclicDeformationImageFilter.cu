@@ -29,21 +29,19 @@
 
 // TEXTURES AND CONSTANTS //
 
-__constant__ int4 c_inputSize;
-
 //_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 // K E R N E L S -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 //_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_( S T A R T )_
 //_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 void
-CUDA_linear_interpolate_along_fourth_dimension(unsigned int inputSize[4],
-                                               float *      input,
-                                               float *      output,
-                                               unsigned int frameInf,
-                                               unsigned int frameSup,
-                                               double       weightInf,
-                                               double       weightSup)
+CUDA_linear_interpolate_along_fourth_dimension(SizeValueType4 inputSize,
+                                               float *        input,
+                                               float *        output,
+                                               unsigned int   frameInf,
+                                               unsigned int   frameSup,
+                                               double         weightInf,
+                                               double         weightSup)
 {
   cublasHandle_t handle;
   cublasCreate(&handle);
@@ -51,7 +49,7 @@ CUDA_linear_interpolate_along_fourth_dimension(unsigned int inputSize[4],
   float wInf = (float)weightInf;
   float wSup = (float)weightSup;
 
-  size_t numel = inputSize[0] * inputSize[1] * inputSize[2] * 3;
+  size_t numel = inputSize.x * inputSize.y * inputSize.z * 3;
 
   cudaMemset((void *)output, 0, numel * sizeof(float));
 

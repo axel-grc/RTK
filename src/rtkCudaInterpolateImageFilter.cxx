@@ -29,7 +29,7 @@ CudaInterpolateImageFilter ::CudaInterpolateImageFilter() = default;
 void
 CudaInterpolateImageFilter ::GPUGenerateData()
 {
-  int4 inputSize;
+  SizeValueType4 inputSize;
   inputSize.x = this->GetInputVolumeSeries()->GetBufferedRegion().GetSize()[0];
   inputSize.y = this->GetInputVolumeSeries()->GetBufferedRegion().GetSize()[1];
   inputSize.z = this->GetInputVolumeSeries()->GetBufferedRegion().GetSize()[2];
