@@ -20,6 +20,25 @@ For RTK developpers, it may be useful to compile RTK independently from ITK. Thi
 * Manually download RTK's source repository from [GitHub](https://github.com/RTKConsortium/RTK) with `git` (recommended) or as a [zip package](https://codeload.github.com/RTKConsortium/RTK/zip/main).
 * Configure the project with CMake pointing to RTK's source directory and setting the CMake option `ITK_DIR` to ITK's compilation directory. All CMake options above can be set except `Module_RTK`.
 
+#### Installing the Python wrapping into a Python environment
+Configure and build RTK pointing `-DITK_DIR` to an ITK build tree with Python wrapping enabled (`ITK_WRAP_PYTHON=ON`) and, when using CUDA, `-DRTK_USE_CUDA=ON`. RTK's Python files are installed as plain copies by default. For local development, the optional `-DRTK_EDITABLE_PYTHON_PACKAGES=ON` (off by default) installs those files as symbolic links back to the RTK source tree instead, so edits to the Python scripts are picked up without reinstalling.
+
+The `itk` Python package is installed into the directory given by `-DPY_SITE_PACKAGES_PATH`; this destination is fixed at configure time. If left unset, ITK detects it automatically from the Python executable it finds. Set it explicitly to install into a self-contained folder as an alternative to a `site-packages` directory, then add that folder to `PYTHONPATH`.
+
+Then install RTK with `cmake --install build-dir --component RuntimeLibraries`.
+
+**Note**: unlike a wheel installed with `pip install itk-rtk`, this CMake install does not put the `rtk*` command-line applications (e.g. `rtkfdk`) on the `PATH`. Run them with `python -m itk.rtkfdk` instead.
+
+[utilities/rtk_install_bindings.sh](https://github.com/RTKConsortium/RTK/blob/main/utilities/rtk_install_bindings.sh) builds ITK from source with RTK as a local remote module and installs the bindings into a self-contained folder; edit the configuration variables at the top of the script, then run it. After it finishes, add the install folder to your `PYTHONPATH` for the current session, or permanently in your shell profile:
+```
+export PYTHONPATH=/path/to/bindings:$PYTHONPATH
+```
+Then run the RTK applications as Python modules, e.g.:
+```
+python3 -m itk.rtkfdk -g geometry.xml --path . --regexp '*.mha' -o output.mha
+```
+
+
 ## Python pre-compiled binaries
 We only provide pre-compiled binaries for the Python package which depends on ITK. Use the following commands to install the RTK module with `pip`.
 ```
