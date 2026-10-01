@@ -48,6 +48,7 @@ TotalVariationDenoiseSequenceImageFilter<TImageSequence>::TotalVariationDenoiseS
 
   // Set memory management parameters
   m_CastFilter->SetInPlace(false);
+  m_PasteFilter->SetInPlace(true);
 }
 
 template <typename TImageSequence>
